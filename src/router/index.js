@@ -1,27 +1,23 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Map from '@/views/CsvMap.vue'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
+// fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vTdVVg7dwR2P3wAt5VlEpsjQZO94b3z5BQW6kmq6Coi5yyOjoVmafSCyzjd15nBaf3JytN5Rxn_x37b/pub?gid=0&single=true&output=csv').then(d => d.text()).then(d => console.log(d))
+
+export default new VueRouter({
+  routes: [
+    {
+      path: '/',
+      name: 'docs',
+      component: Map
+    }
+  ],
+  parseQuery (q) {
+    return q
   },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  stringifyQuery (q) {
+    return `?${q}`
   }
-]
-
-const router = new VueRouter({
-  routes
 })
-
-export default router
