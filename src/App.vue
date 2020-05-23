@@ -1,20 +1,21 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view v-if="data != null"/>
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 // import { mapActions, mapState, mapGetters } from 'vuex'
 // import bindState from '@/assets/js/bindState'
 export default {
   methods: {
-    ...mapActions(['initMap'])
+    ...mapActions(['initData']),
+    ...mapState(['data'])
   },
   watch: {
     $route: {
       handler (route) {
-        this.initMap(route.query)
+        this.initData(route.query)
       },
       immediate: true
     }

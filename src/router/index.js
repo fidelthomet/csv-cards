@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Map from '@/views/CsvMap.vue'
+import Random from '@/views/CsvRandom.vue'
 
 Vue.use(VueRouter)
 
@@ -11,7 +11,7 @@ export default new VueRouter({
     {
       path: '/',
       name: 'docs',
-      component: Map
+      component: Random
     }
   ],
   parseQuery (q) {

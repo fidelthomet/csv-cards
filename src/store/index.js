@@ -21,19 +21,16 @@ export default new Vuex.Store({
     update ({ commit }, d) {
       commit('set', d)
     },
-    async initMap ({ commit, dispatch, state }, url) {
-      const data = await fetch(url).then(r => r.text()).then((data) => {
-        const fields = ['title', 'subtitle', 'lat', 'lng', 'color', 'img', 'url']
-        return csvParse(data).map((d, id) => {
-          if (d.img) d.img = d.img.split(',').map(i => i.trim())
-          if (d.lat) d.lat = +d.lat
-          if (d.lng) d.lng = +d.lng
-          return {
-            id,
-            ...Object.fromEntries(Object.keys(d).filter(k => fields.indexOf(k) !== -1).map(k => [k, d[k]])),
-            details: Object.keys(d).filter(k => fields.indexOf(k) === -1).map(k => [k, d[k]])
-          }
-        }).filter(d => d.lat != null || d.lng != null)
+    async initData ({ commit, dispatch, state }, url) {
+      const data = await fetch(url).then(r => r.text()).then((csv) => {
+        const fields = ['risk', 'terrain', 'object', 'mood']
+        const data = csvParse(csv)
+        return Object.fromEntries(fields.map(f => {
+          return [
+            f,
+            data.map(d => d[f]).filter(d => d !== '')
+          ]
+        }))
       })
       commit('set', { key: 'data', value: data })
     }
