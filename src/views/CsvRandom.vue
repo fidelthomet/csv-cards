@@ -6,7 +6,7 @@
         <div class="value">{{ c.value }}</div>
       </div>
     </div>
-    <div class="options">
+    <div class="options" v-if="data != null">
       <div class="button" @click="draw">draw cards</div>
     </div>
   </div>
@@ -31,6 +31,11 @@ export default {
       const { highlight, data } = this
       if (highlight == null) return null
       return data.find(d => d.id === highlight)
+    }
+  },
+  watch: {
+    data (data) {
+      if (data != null) this.draw()
     }
   },
   methods: {
