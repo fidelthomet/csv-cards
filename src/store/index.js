@@ -23,7 +23,7 @@ export default new Vuex.Store({
     },
     async initData ({ commit, dispatch, state }, url) {
       const data = await fetch(url).then(r => r.text()).then((csv) => {
-        const fields = ['risk', 'terrain', 'object', 'mood']
+        const fields = ['risk', 'terrain', 'object', 'mood', 'smartness']
         const data = csvParse(csv)
         return Object.fromEntries(fields.map(f => {
           return [

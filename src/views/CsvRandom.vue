@@ -41,7 +41,7 @@ export default {
   methods: {
     draw () {
       const { data } = this
-      const fields = ['risk', 'risk', 'terrain', 'object', 'mood']
+      const fields = ['risk', 'risk', 'terrain', 'object', 'mood', 'smartness']
       this.cards = fields.map(category => {
         return {
           category,
@@ -92,7 +92,7 @@ export default {
           background: $color-green;
         }
       }
-      &.mood {
+      &.mood, &.smartness {
         border-color: $color-yellow;
         color: $color-yellow;
         .category {
