@@ -33,39 +33,13 @@ html {
     font-size: 0.8em;
   }
 
-  .green {
-    color: #2AE092;
-  }
-  .blue {
-    color: #2A98E0;
-  }
-  .violet {
-    color: #7200FF;
-  }
-  .red {
-    color: #FA1556;
-  }
-  .orange {
-    color: #FF7300;
-  }
-  .yellow {
-    color: #FFDD00;
-  }
-
   .button {
-    // border: 1px solid $color-accent-dark;
     background: $color-black;
     color: $color-white;
     padding: $spacing / 4 $spacing;
+    height: 64px;
+    width: 64px;
+    border-radius: 50%;
     cursor: default;
-
-    &:hover {
-      background: $color-accent-dark;
-    }
-
-    &.disabled {
-      background: $color-gray;
-      pointer-events: none;
-    }
   }
 }

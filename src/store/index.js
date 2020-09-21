@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { csvParse } from 'd3-dsv'
+import { csvParseRows } from 'd3-dsv'
 
 Vue.use(Vuex)
 
@@ -23,14 +23,19 @@ export default new Vuex.Store({
     },
     async initData ({ commit, dispatch, state }, url) {
       const data = await fetch(url).then(r => r.text()).then((csv) => {
-        const fields = ['risk', 'terrain', 'object', 'mood', 'smartness']
-        const data = csvParse(csv)
-        return Object.fromEntries(fields.map(f => {
-          return [
-            f,
-            data.map(d => d[f]).filter(d => d !== '')
-          ]
-        }))
+        const rows = csvParseRows(csv)
+        return rows.map(row => {
+          const config = {
+            color: null,
+            num: 1,
+            ...Object.fromEntries([...row[0].matchAll(/@([^(]+)\(([^)]+)\)/g)].map(m => [m[1], m[2]]))
+          }
+          return Array(+config.num).fill({
+            cat: row[0].replace(/@([^(]+)\(([^)]+)\)/g, '').trim(),
+            ...config,
+            items: row.filter((d, i) => i !== 0)
+          })
+        }).flat()
       })
       commit('set', { key: 'data', value: data })
     }
